@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  SafeAreaView,
   StatusBar,
   ScrollView,
   Platform,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   useFonts,
   Lexend_400Regular,

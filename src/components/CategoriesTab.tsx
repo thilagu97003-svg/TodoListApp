@@ -43,17 +43,16 @@ export default function CategoriesTab({
   };
 
   return (
-   <ScrollView 
-  contentContainerStyle={[
-    styles.container, 
-    { 
-      paddingBottom: 100, 
-      paddingHorizontal: 16, // Side padding card expand aaguradhukku gap tharum
-      overflow: 'visible'    // Lift aagumbodhu cut aagaadhu
-    }
-  ]}
-  showsVerticalScrollIndicator={false}
->
+   <ScrollView
+      style={{ flex: 1, backgroundColor: '#F8FAFC' }}
+      contentContainerStyle={{
+        paddingTop: 16,
+        paddingBottom: 120,
+        paddingHorizontal: 16,
+      }}
+      showsVerticalScrollIndicator={false}
+      bounces={true}
+    >
       <Text style={styles.screenTitle}>Categories</Text>
       <Text style={styles.screenSubtitle}>Organize and track progress by domain</Text>
 
@@ -90,17 +89,13 @@ categoryTasks.forEach((t) => {
 
 const progressPercent = totalPoints > 0 ? Math.round((earnedPoints / totalPoints) * 100) : 0;
           return (
-            <div
-              key={category}
-              onMouseEnter={() => setHoveredCard(category)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={{
-                width: '48%',
-                transition: 'all 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
-                transform: isHovered ? 'scale(1.05) translateY(-4px)' : 'scale(1)',
-                cursor: 'pointer',
-              }}
-            >
+            <View
+          key={category}
+          style={{
+            width: '48%',
+          }}
+        >
+            
               <TouchableOpacity
                 activeOpacity={0.88}
                 onPress={() => handleCardPress(category)}
@@ -167,7 +162,7 @@ const progressPercent = totalPoints > 0 ? Math.round((earnedPoints / totalPoints
                   />
                 </View>
               </TouchableOpacity>
-            </div>
+            </View>
           );
         })}
       </View>

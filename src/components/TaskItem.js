@@ -138,7 +138,7 @@ export default function TaskItem({ task, onPress, onToggle, onDelete }) {
     : 0;
 
   return (
-   <div
+   <View
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
   onTouchStart={() => setIsPressed(true)}
@@ -261,7 +261,7 @@ export default function TaskItem({ task, onPress, onToggle, onDelete }) {
           <Feather name="trash-2" size={19} color="#FF6B6B" />
         </TouchableOpacity>
       </TouchableOpacity>
-    </div>
+    </View>
   );
 }
 

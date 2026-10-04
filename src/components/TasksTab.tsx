@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput, ScrollView, StyleSheet, Platform } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, ScrollView, StyleSheet, Platform, Alert } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import TaskItem from './TaskItem.js';
 // Category wise distinct color palette
@@ -367,11 +367,13 @@ export default function TasksTab({
   const otherTasks = tasks.filter((t: any) => t.dueDate !== todayStr);
 
   useEffect(() => {
+    if (Platform.OS !== 'web') return;
+
     const el = categoryScrollRef.current?.getScrollableNode
       ? categoryScrollRef.current.getScrollableNode()
       : categoryScrollRef.current;
 
-    if (!el) return;
+    if (!el || !el.addEventListener) return;
 
     const handleWheel = (e: WheelEvent) => {
       if (e.deltaY !== 0) {
@@ -404,14 +406,47 @@ export default function TasksTab({
             <View style={{ position: 'relative' }}>
               <TouchableOpacity
                 onPress={() => {
-                  if (datePickerRef.current) {
-                    if (typeof datePickerRef.current.showPicker === 'function') {
-                      datePickerRef.current.showPicker();
-                    } else {
-                      datePickerRef.current.click();
-                    }
-                  }
-                }}
+              if (Platform.OS === 'web' && datePickerRef.current) {
+                if (typeof datePickerRef.current.showPicker === 'function') {
+                  datePickerRef.current.showPicker();
+                } else {
+                  datePickerRef.current.click();
+                }
+              } else {
+                const formatDate = (offsetDays: number) => {
+                  const d = new Date();
+                  d.setDate(d.getDate() + offsetDays);
+                  const day = String(d.getDate()).padStart(2, '0');
+                  const month = String(d.getMonth() + 1).padStart(2, '0');
+                  const year = d.getFullYear();
+                  return `${day}/${month}/${year}`;
+                };
+
+                const todayStr = formatDate(0);
+                const tomorrowStr = formatDate(1);
+                const dayAfterStr = formatDate(2);
+
+               Alert.alert(
+                  'Filter Tasks',
+                  `Showing: ${selectedDateFilter}`,
+                  [
+                    {
+                      text: 'All Tasks',
+                      onPress: () => setSelectedDateFilter('All'),
+                    },
+                    {
+                      text: `Today (${todayStr.slice(0, 5)})`,
+                      onPress: () => setSelectedDateFilter(todayStr),
+                    },
+                    {
+                      text: `Tomorrow (${tomorrowStr.slice(0, 5)})`,
+                      onPress: () => setSelectedDateFilter(tomorrowStr),
+                    },
+                  ],
+                  { cancelable: true }
+                );
+              }
+            }}
                 style={{
                   width: 42,
                   height: 42,
@@ -432,26 +467,28 @@ export default function TasksTab({
                 />
               </TouchableOpacity>
 
-              {/* Native Date Picker element */}
-              <input
-                ref={datePickerRef}
-                type="date"
-                onChange={(e) => {
-                  if (e.target.value) {
-                    const [year, month, day] = e.target.value.split('-');
-                    setSelectedDateFilter(`${day}/${month}/${year}`);
-                  }
-                }}
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  width: 1,
-                  height: 1,
-                  opacity: 0,
-                  pointerEvents: 'none',
-                }}
-              />
+              {/* Native Date Picker element (Web Only) */}
+{Platform.OS === 'web' && (
+  <input
+    ref={datePickerRef}
+    type="date"
+    onChange={(e: any) => {
+      if (e.target.value) {
+        const [year, month, day] = e.target.value.split('-');
+        setSelectedDateFilter(`${day}/${month}/${year}`);
+      }
+    }}
+    style={{
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      width: 1,
+      height: 1,
+      opacity: 0,
+      pointerEvents: 'none',
+    }}
+  />
+)}
             </View>
             {/* Existing Add Task Button */}
             <TouchableOpacity style={styles.addTodayBtn} activeOpacity={0.8} onPress={onOpenAddModal}>

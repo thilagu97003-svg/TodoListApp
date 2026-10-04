@@ -1,26 +1,12 @@
 // @ts-nocheck
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-
+import { Ionicons } from '@expo/vector-icons';
 // Sharp Vector Star Component (Figma Match)
-const SharpStar = ({ size = 175, color = '#E6C61A' }) => {
+const SharpStar = ({ size = 175, color = '#E6C61A' }: { size?: number; color?: string }) => {
   return (
-    <View style={{ width: size, height: size, position: 'relative' }}>
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <polygon
-          points="50,2 65,34 99,38 74,62 81,97 50,79 19,97 26,62 1,38 35,34"
-          fill={color}
-          stroke={color}
-          strokeWidth="1"
-          strokeLinejoin="miter"
-        />
-      </svg>
+    <View style={{ width: size, height: size, justifyContent: 'center', alignItems: 'center' }}>
+      <Ionicons name="star" size={size} color={color} />
     </View>
   );
 };
@@ -73,7 +59,7 @@ export default function SplashScreen({ onContinue }) {
 
       {/* Footer Tagline */}
       <View style={styles.splashFooter}>
-        <Text style={styles.splashTagline}>Organize your day, conquer your goals.</Text>
+        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.splashTagline}>Organize your day, conquer your goals.</Text>
       </View>
     </TouchableOpacity>
   );
@@ -197,12 +183,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   splashTagline: {
-    fontFamily: 'Lexend_700Bold',
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#111827',
-    textAlign: 'center',
-  },
+  fontSize: 14,
+  color: '#64748B',
+  textAlign: 'center',
+  paddingHorizontal: 20,
+},
   splashTapHint: {
     fontFamily: 'Lexend_400Regular',
     fontSize: 12,
