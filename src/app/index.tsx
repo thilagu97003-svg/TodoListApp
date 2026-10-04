@@ -29,8 +29,8 @@ import TasksTab from '../components/TasksTab';
 import CategoriesTab from '../components/CategoriesTab';
 import CompletedTab from '../components/CompletedTab';
 
-const STORAGE_KEY = '@taskmaster_tasks_v5';
-const CATEGORIES_KEY = '@taskmaster_categories_v5';
+const STORAGE_KEY = '@taskmaster_tasks_v6';
+const CATEGORIES_KEY = '@taskmaster_categories_v6';
 
 const INITIAL_CATEGORIES = ['Work', 'Personal', 'Study', 'Shopping', 'Health', 'Travel', 'Finance', 'Events', 'Bills', 'Home'];
 const INITIAL_TASKS = [
@@ -40,8 +40,8 @@ const INITIAL_TASKS = [
     category: 'Home',
     dueDate: '03/10/2026',
     dueTime: '01:35 AM',
-    completed: true,
-    completedOn: '03/10/2026',
+    completed: false,
+    completedOn: null,
     subtasks: [
       { id: 's1', title: 'Cook Rice & Dal', completed: true },
       { id: 's2', title: 'Pack Lunch Box', completed: true },
@@ -128,9 +128,37 @@ const INITIAL_TASKS = [
     category: 'Study',
     dueDate: '04/10/2026',
     dueTime: '17:15',
-    completed: true,
-    completedOn: '04/10/2026',
+    completed: false,
+    completedOn: null,
     subtasks: [],
+  },
+  {
+    id: '10',
+    title: 'Annual Dental Checkup & Routine Eye Test',
+    category: 'Health',
+    dueDate: '02/10/2026',
+    dueTime: '10:30 AM',
+    completed: true,
+    completedOn: 'Today',
+    subtasks: [
+      { id: 's1', title: 'Dentist Consultation', completed: true },
+      { id: 's2', title: 'Teeth Cleaning', completed: true },
+      { id: 's3', title: 'Vision Test', completed: true },
+    ],
+  },
+  {
+    id: '11',
+    title: 'SQL Module: Joins, Group By & Subqueries Practice',
+    category: 'Study',
+    dueDate: '02/10/2026',
+    dueTime: '04:00 PM',
+    completed: true,
+    completedOn: 'Today',
+    subtasks: [
+      { id: 's1', title: 'Practice Inner & Outer Joins', completed: true },
+      { id: 's2', title: 'Write Aggregation Queries', completed: true },
+      { id: 's3', title: 'Solve 5 LeetCode SQL problems', completed: true },
+    ],
   },
 ];
 const CATEGORY_COLORS: Record<string, { border: string; bg: string; text: string; activeBg: string }> = {
