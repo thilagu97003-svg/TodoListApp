@@ -177,17 +177,22 @@ const styles = StyleSheet.create({
     zIndex: 12,
   },
 
-  splashFooter: {
+ splashFooter: {
+    position: 'absolute',
+    bottom: 50, // screen edge-kku pogama nalla mela thooki ukkarum
+    left: 0,
+    right: 0,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 20,
-    marginBottom: 8,
   },
   splashTagline: {
-  fontSize: 14,
-  color: '#64748B',
-  textAlign: 'center',
-  paddingHorizontal: 20,
-},
+    fontSize: 16,
+    fontWeight: '700', // bold & sharp
+    color: '#000000',   // pure jet black
+    textAlign: 'center',
+    letterSpacing: 0.3,
+  },
   splashTapHint: {
     fontFamily: 'Lexend_400Regular',
     fontSize: 12,
